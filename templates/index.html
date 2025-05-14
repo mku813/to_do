@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <!-- CSS 파일 연결 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <!-- 할 일 입력 폼 -->
+        <form action="/add" method="POST">
+            <input type="text" name="task" placeholder="할 일을 입력하세요" required>
+            <button type="submit">추가</button>
+        </form>
+        <!-- 할 일 목록 -->
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task }}
+                    <a href="{{ url_for('delete_task', task_id=loop.index0) }}" class="delete-btn">삭제</a>
+                </li>
+            {% else %}
+                <li>할 일이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
